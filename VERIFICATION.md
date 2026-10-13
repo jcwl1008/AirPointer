@@ -1,12 +1,24 @@
-# AirPointer 1.2 verification
+# AirPointer 1.6 verification
 
-- APK compilation and APK Signature Scheme v3 verification passed.
-- Application ID remains com.jimmy.bluepointer; versionCode increased from 2 to 3.
-- APK certificate matches the working BluePointer 1.1 APK, allowing an in-place update.
-- Existing control regression tests passed: motion integration, stationary noise, axis direction, inversion, reset, gaps, HID limits, report descriptors, LED output, and retry policy.
-- Bluetooth session logic, report descriptor and motion engine are preserved from 1.1. Only visible notification and diagnosis names changed in LinkService; the SDP name remains unchanged to preserve host compatibility.
-- Physical Galaxy Flip7 / Windows 11 end-to-end retest is pending the user's installation. No physical Bluetooth test is claimed for this UI revision.
+Completed:
+- Gradle Android build completed successfully, target/compile API 35, min API 28.
+- APK signature verified; same certificate as working v1.2, application ID com.jimmy.bluepointer, versionCode 7.
+- APK inspected for bundled fonts and signing keys: none included.
+- Arm64 native library inspection found ML Kit 19.0.0 uses 4KB ELF alignment. Built-in ink initialization is disabled on 16KB page devices; a phone-IME handwriting fallback is provided. This APK does not claim full 16KB native-library/Google Play compliance.
+- Existing HID/motion/retry regression tests passed.
+- Keyboard tests passed: ASCII mappings, Traditional/supplementary Unicode framing, checksum, length, surrogate-safe batching, dictionary/root lookup, related words and stable candidate order.
+- Windows receiver compiled against .NET Framework 4.8 reference assemblies.
+- Windows frame decoder tested on .NET: valid Traditional Chinese, supplementary Unicode and rejection of wrong checksum/length/malformed surrogate data.
 
-- Emulator visual inspection could not be completed in this runtime; no emulator UI pass is claimed.
+Not yet verified on physical hardware:
+- Actual Galaxy Flip7 / Windows 11 HID input, full-screen layout and touch interactions.
+- Model download and handwriting recognition on the phone.
+- Windows tray app and SendInput behavior in specific target applications.
 
-- Distribution APK rebuilt without bundled fonts; APK contents inspected and original signing identity verified.
+No physical end-to-end pass or exact Windows 95 candidate order is claimed.
+
+1.4 layout change: removed key-size control, added explicit landscape/portrait toggle, handled orientation configuration in-place, retained draft/IME state/ink and returned presentation to portrait. APK compilation and signature are checked; physical rotation/visual QA is still pending.
+
+1.5: full-area keyboard/trackpad toggle and long-space caret gesture added. Pure Java caret tests cover insert/delete at caret, emoji boundaries, vertical newline navigation and boundary/state restoration. APK build and signing are checked. Physical long-press gesture, soft-wrapped lines, Bluetooth arrow input and visual sizing are not yet verified on the phone.
+
+1.6: media transport packets and Windows VK mappings tested; SpeechRecognizer start/stop lifecycle and stale-callback guards implemented. Microphone permission, actual English/Cantonese recognition and Windows playback response still require physical device validation.
