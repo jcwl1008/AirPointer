@@ -1,0 +1,5 @@
+import com.jimmy.bluepointer.*;import java.util.*;
+public class MediaTests {
+ static void check(boolean b,String m){if(!b)throw new AssertionError(m);}
+ public static void main(String[] args){for(int command=1;command<=5;command++){String frame=MediaProtocol.frame(command);check(frame.length()==6&&frame.startsWith("a2"),"Media framing");check((Integer.parseInt(frame.substring(2,4),16)^0xC3)==Integer.parseInt(frame.substring(4),16),"Checksum");List<int[]> events=MediaProtocol.events(command);check(events.size()==8&&events.get(0)[0]==7&&events.get(0)[1]==0x45&&events.get(7)[1]==0x28,"Existing HID framing chord and terminator");for(int i=1;i<=6;i++)check(events.get(i)[0]==0,"Payload releases all modifiers");System.out.println(command+" "+frame);}boolean rejected=false;try{MediaProtocol.frame(6);}catch(IllegalArgumentException e){rejected=true;}check(rejected,"Reject unknown media control");System.out.println("PASS: all five media commands, framing, checksum, modifier release, unknown command rejection.");}
+}
