@@ -1,5 +1,9 @@
 # AirPointer 1.7 — Calculator-inspired
 
+![AirPointer Calculator-inspired UI concept — Presentation, Keyboard, Media and Voice](docs/airpointer-ui-concept.png)
+
+> **介面概念預覽 / UI concept preview**：展示黑／灰／橙配色及簡報、鍵盤、媒體、語音四種模式。此圖為設計示意，並非實機截圖；實際排版會按裝置及字體大小調整。鍵盤文字欄只顯示手機待傳送文字，不會讀取 PC 內容。
+
 ## 1.7 介面更新
 黑色背景、深灰按鍵、淺灰輔助鍵、橙色主要操作。固定簡報／鍵盤／媒體／語音模式列；媒體及咪高峰採大型圓形按鍵，文字鍵盤保留闊身圓角按鍵。無裝飾漸層／陰影，使用 Android 系統字型，不捆綁 Apple SF Pro。
 
@@ -69,3 +73,4 @@ ML Kit 19.0.0 的原生辨識庫尚非 16KB 對齊，因此在 16KB 記憶體頁
 結果先加入手機待傳送文字，可點文字欄修改，再按「傳送文字」。英文和粵語語音文字均透過既有 Unicode 接收器送到電腦，不會把錄音發送到電腦。粵語使用 yue-Hant-HK 語言標籤；支援及辨識質素取決於手機已安裝的語音服務及語言資料，App 不能保證所有手機都支援粵語。不支援時會顯示錯誤，可開啟手機語音服務設定。
 
 語音辨識由 Android SpeechRecognizer 的預設服務處理，該服務可能需要網絡，並可能將音訊傳到其伺服器；App 沒有聲稱語音完全離線，亦不保存錄音。按停止、離開 App 或切換模式會停止／取消收音。
+
